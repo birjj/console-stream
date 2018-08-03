@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>console-stream</title>
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-clear" viewBox="-2 -2 28 28"><path style="stroke:currentColor;" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20A8,8 0 0,0 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 10 12.5"><path style="fill:none;stroke-width:1.5;" d="m 3,3 3.5,3.25 -3.5,3.25"/></symbol>
+      <symbol id="i-arrow" viewBox="5 98 7 8"><path d="M12,102 5,98v8"/></symbol>
+    </svg>
+
+    <h1>console-stream<input class="sub-title channel-inp dim" placeholder="Enter channel"></input></h1>
+    <section class="explanation tabbed" tabindex="0">
+      <div class="tabs header">
+        <button class="tab active" data-target=".code.html">HTML</button>
+        <button class="tab" data-target=".code.js">JS</button>
+      </div>
+      <pre class="code html tab-content active">&lt;script type="text/javascript" src="{{ URL }}/<span class="channel"></span>.js" /&gt;</pre>
+      <pre class="code js tab-content">(() => {
+    const $script = document.createElement("script");
+    $script.src = "{{ URL }}/<span class="channel"></span>.js";
+    document.getElementsByTagName("head")[0].appendChild($script);
+})();</pre>
+    </section>
+
+    <section class="console">
+      <div class="header">
+        <button class="clear btn--icon">
+          <svg><use xlink:href="#i-clear"/></svg>
+        </button>
+        <div class="separator"></div>
+        <input name="filter" class="filter" placeholder="Filter" />
+        <div class="separator"></div>
+        <input type="checkbox" name="group-similar" id="group-similar" class="group-similar" />
+        <label for="group-similar">Group similar</label>
+      </div>
+      <div class="log">
+        <div class="messages"></div>
+        <div class="prompt">
+          <svg><use xlink:href="#i-chevron"/></svg>
+          <span class="prompt-content dim">Connecting...</span>
+        </div>
+      </div>
+    </section>
+
+    <script src="/index.js"></script>
+  </body>
+</html>

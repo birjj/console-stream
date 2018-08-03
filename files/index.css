@@ -1,0 +1,288 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #F4F5F7;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #253858;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #253858;
+}
+
+.sub-title {
+  background: none;
+  border: none;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+}
+
+.explanation {
+  margin-bottom: 2em;
+  max-width: 100vw;
+  max-width: calc(100vw - 2em);
+  margin: 1em -1.5em 3em;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 64px rgba(37, 56, 88, 0.1), 0 2px 8px rgba(37, 56, 88, 0.05);
+}
+.explanation:focus {
+  box-shadow: 0 2px 64px rgba(0, 137, 255, 0.2), 0 2px 8px rgba(0, 137, 255, 0.05);
+  outline: rgba(0, 137, 255, 0.5) auto 5px;
+}
+.explanation p {
+  max-width: 60ch;
+}
+.explanation .code {
+  position: relative;
+  margin: 0;
+  padding: 1em 1.5em;
+  white-space: pre-wrap;
+  font-family: "Roboto Mono", monospace;
+}
+.explanation .code.html {
+  padding-left: 2.5em;
+}
+.explanation .code.html::before, .explanation .code.html::after {
+  content: "<body>";
+  display: block;
+  opacity: 0.5;
+  margin-left: -2ch;
+}
+.explanation .code.html::after {
+  content: "  ...\a</body>";
+}
+
+/* === GENERAL === */
+.btn--icon {
+  font-size: 18px;
+  background: none;
+  border: none;
+  padding: 0.5em;
+  line-height: 0;
+  color: rgba(37, 56, 88, 0.8);
+  fill: currentColor;
+}
+.btn--icon:hover {
+  color: #000;
+}
+.btn--icon:active {
+  color: rgba(37, 56, 88, 0.6);
+}
+.btn--icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.dim, .console .log .message time {
+  color: rgba(66, 82, 110, 0.75);
+}
+
+.tabs {
+  display: flex;
+}
+.tabs > .tab {
+  flex-grow: 1;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+.tabs > .tab:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+.tabs > .tab:not(.active) {
+  background: #f3f3f3;
+}
+
+.tab-content:not(.active) {
+  display: none;
+}
+
+/* === CONSOLE === */
+.console {
+  flex-grow: 1;
+  min-height: 128px;
+  align-self: stretch;
+  box-shadow: 0 -2px 32px rgba(37, 56, 88, 0.05), 0 -2px 8px rgba(37, 56, 88, 0.02);
+  font-family: sans-serif;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+.console .header {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  border: 1px solid #d0d0d0;
+  border-width: 1px 0;
+}
+.console .header .separator {
+  width: 1px;
+  height: 1.5em;
+  background: #ccc;
+}
+.console .header input {
+  margin: 0 0.5em;
+  border: none;
+  padding: 0.25em 0.5em;
+}
+.console .header input[type=checkbox] {
+  margin: 0 0.25em 0 0.5em;
+}
+.console .header label {
+  margin-right: 0.5em;
+}
+.console .header .dim, .console .header .log .message time, .console .log .message .header time {
+  margin: 0 0.5em;
+  opacity: 0.75;
+}
+.console .log {
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  flex-grow: 1;
+  background: #fff;
+}
+.console .log .message {
+  padding: 0.4em 1em 0.4em 2em;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  cursor: default;
+}
+.console .log .message > *, .console .log .message .content > * {
+  margin-right: 1ch;
+}
+.console .log .message .value {
+  white-space: pre-wrap;
+}
+.console .log .message--warn, .console .log .message--error {
+  margin-top: -1px;
+  border-top: 1px solid #ddd;
+}
+.console .log .message--warn {
+  /* https://github.com/ChromeDevTools/devtools-frontend/blob/18d135653c1189beeafc74f37d3d1486570303f3/front_end/console/consoleView.css#L251-L253 */
+  background: #fffbe6;
+  color: #5c3c00;
+  border-color: #fff5c2;
+}
+.console .log .message--error {
+  /* https://github.com/ChromeDevTools/devtools-frontend/blob/18d135653c1189beeafc74f37d3d1486570303f3/front_end/console/consoleView.css#L251-L253 */
+  background: #fff0f0;
+  color: red;
+  border-color: #ffd6d6;
+}
+.console .log .prompt {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.console .log .prompt svg {
+  width: 1em;
+  height: 1em;
+  margin: 0.5em;
+  stroke: #367cf1;
+  /* https://github.com/ChromeDevTools/devtools-frontend/blob/master/front_end/Images/src/smallIcons.svg?short_path=6b36da9 */
+}
+
+.type--number, .type--function__f,
+.type--boolean {
+  color: #1c00d1;
+}
+
+.type--undefined, .type--null {
+  color: #999;
+}
+
+.type--function {
+  font-style: italic;
+}
+.type--node {
+  white-space: nowrap !important;
+  color: #a894a6;
+  position: relative;
+}
+.type--node__start, .type--node__end {
+  color: #881280;
+}
+.type--node .attr__key {
+  color: #994500;
+}
+.type--node .attr__val {
+  color: #1a1aa6;
+}
+.type--node::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: -2px;
+  bottom: -2px;
+}
+.type--node:hover::before {
+  background: rgba(56, 121, 217, 0.1);
+}
+
+.expandable__title > .type--array,
+.expandable__title > .type--object {
+  font-style: italic;
+}
+
+.expandable--array,
+.expandable--object {
+  color: #212121;
+}
+.expandable--array .key-value.dim .key, .expandable--array .console .log .message time.key-value .key, .console .log .message .expandable--array time.key-value .key,
+.expandable--object .key-value.dim .key,
+.expandable--object .console .log .message time.key-value .key,
+.console .log .message .expandable--object time.key-value .key {
+  opacity: 0.6;
+}
+.expandable--array .key,
+.expandable--object .key {
+  padding-right: 5px;
+  color: #881391;
+}
+.expandable--array .expandable__title .key,
+.expandable--object .expandable__title .key {
+  color: #565656;
+}
+
+.expandable {
+  display: inline-block;
+  vertical-align: top;
+}
+.expandable__title > .arrow {
+  width: 0.7em;
+  height: 0.7em;
+  fill: #888;
+  margin-right: 0.25em;
+}
+.expandable--expanded > .expandable__title > .arrow {
+  transform: rotate(90deg);
+}
+.expandable__content {
+  display: none;
+  padding-left: 2em;
+}
+.expandable__content .expandable__content {
+  padding-left: 1em;
+}
+.expandable--expanded > .expandable__content {
+  display: block;
+}
+
+/*# sourceMappingURL=index.css.map */

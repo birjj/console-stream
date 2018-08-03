@@ -1,0 +1,26 @@
+{
+  "name": "console-stream",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "rollup -c && sass src/index.scss files/index.css"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "bufferutil": "4.0.0",
+    "express": "4.16.3",
+    "utf-8-validate": "5.0.1",
+    "ws": "6.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^0.63.4",
+    "rollup-plugin-typescript2": "^0.16.1",
+    "sass": "^1.10.1",
+    "typescript": "^2.9.2"
+  }
+}
