@@ -85,6 +85,8 @@ export default class Console {
     $console: HTMLElement;
     /** The element in which we should insert our messages */
     $messages: HTMLElement;
+    /** The WSClient we receive messages from */
+    ws: WSClient;
     /** The messages we are displaying */
     messages: Message[] = [];
     /** Filter we are filtering messages by */
@@ -102,6 +104,7 @@ export default class Console {
             $filter => $filter.addEventListener("input", this.onFilter)
         );
 
+        this.ws = ws;
         ws.on("*", this.onMessage);
     }
 
@@ -117,6 +120,7 @@ export default class Console {
 
     onClear = () => {
         this.messages = [];
+        this.clear$Messages();
     };
 
     onFilter = (e: Event) => {
@@ -124,9 +128,20 @@ export default class Console {
         console.log("Filter:", filter);
     }
 
-    destroy() {
+    clear$Messages() {
         while (this.$messages.lastChild) {
             this.$messages.removeChild(this.$messages.lastChild);
         }
+    }
+
+    destroy() {
+        Array.from(this.$console.getElementsByClassName("clear")).forEach(
+            $clear => $clear.removeEventListener("click", this.onClear)
+        );
+        Array.from(this.$console.getElementsByClassName("filter")).forEach(
+            $filter => $filter.removeEventListener("input", this.onFilter)
+        );
+        this.ws.off("*", this.onMessage);
+        this.clear$Messages();
     }
 }

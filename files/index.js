@@ -56,6 +56,11 @@ var WSClient = /** @class */ (function () {
         this._listeners[event] = this._listeners[event] || [];
         this._listeners[event].push(cb);
     };
+    WSClient.prototype.off = function (event, cb) {
+        if (this._listeners[event] && this._listeners[event].includes(cb)) {
+            this._listeners[event] = this._listeners[event].filter(function (f) { return f !== cb; });
+        }
+    };
     WSClient.prototype.emit = function (event) {
         var data = [];
         for (var _i = 1; _i < arguments.length; _i++) {
@@ -722,6 +727,7 @@ var Console = /** @class */ (function () {
         };
         this.onClear = function () {
             _this.messages = [];
+            _this.clear$Messages();
         };
         this.onFilter = function (e) {
             var filter = e.target.value;
@@ -731,12 +737,20 @@ var Console = /** @class */ (function () {
         this.$messages = $console.getElementsByClassName("messages")[0];
         Array.from($console.getElementsByClassName("clear")).forEach(function ($clear) { return $clear.addEventListener("click", _this.onClear); });
         Array.from($console.getElementsByClassName("filter")).forEach(function ($filter) { return $filter.addEventListener("input", _this.onFilter); });
+        this.ws = ws;
         ws.on("*", this.onMessage);
     }
-    Console.prototype.destroy = function () {
+    Console.prototype.clear$Messages = function () {
         while (this.$messages.lastChild) {
             this.$messages.removeChild(this.$messages.lastChild);
         }
+    };
+    Console.prototype.destroy = function () {
+        var _this = this;
+        Array.from(this.$console.getElementsByClassName("clear")).forEach(function ($clear) { return $clear.removeEventListener("click", _this.onClear); });
+        Array.from(this.$console.getElementsByClassName("filter")).forEach(function ($filter) { return $filter.removeEventListener("input", _this.onFilter); });
+        this.ws.off("*", this.onMessage);
+        this.clear$Messages();
     };
     return Console;
 }());

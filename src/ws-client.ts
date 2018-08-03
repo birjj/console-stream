@@ -59,6 +59,13 @@ export default class WSClient {
         this._listeners[event] = this._listeners[event] || [];
         this._listeners[event].push(cb);
     }
+    off(event: string, cb: Function) {
+        if (this._listeners[event] && this._listeners[event].includes(cb)) {
+            this._listeners[event] = this._listeners[event].filter(
+                f => f !== cb
+            );
+        }
+    }
     emit(event: string, ...data: any[]) {
         if (!this._listeners[event]) { return; }
         this._listeners[event].forEach(cb => cb(...data));
