@@ -26,6 +26,7 @@ h1 { color: $cText; }
 }
 
 .explanation {
+  flex-shrink: 0;
   margin-bottom: 2em;
   max-width: 100vw;
   max-width: calc(100vw - 2em);
@@ -105,8 +106,8 @@ h1 { color: $cText; }
 
 /* === CONSOLE === */
 .console {
-  flex-grow: 1;
-  min-height: 128px;
+  flex: 1 1;
+  min-height: 256px;
   align-self: stretch;
   box-shadow:
     0 -2px 32px rgba($cText, 0.05),
@@ -117,6 +118,7 @@ h1 { color: $cText; }
   flex-direction: column;
   
   .header {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     background: #f3f3f3;
@@ -147,6 +149,8 @@ h1 { color: $cText; }
   }
   
   .log {
+    flex: 1 1;
+    overflow-y: auto;
     font-family: "Roboto Mono", monospace;
     font-size: 12px;
     flex-grow: 1;
