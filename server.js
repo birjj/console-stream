@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, process.env.INDEX || "index.html");
-const URL = getLocalIp();
+const URL = "https://console-stream.herokuapp.com";
 
 function getLocalIp() {
     const os = require("os");
@@ -26,13 +26,13 @@ server.use(bodyParser.json());
 server.get("/", (req, res) => {
     res.send(fs.readFileSync(INDEX).toString()
         .replace(
-            /{{ URL }}/g, "http://"+URL+":"+PORT
+            /{{ URL }}/g, URL
         ));
 });
 server.get("/:channel.js", (req, res) => {
     res.send(fs.readFileSync("./client.js").toString()
         .replace(
-            /{{ URL }}/g, "http://"+URL+":"+PORT
+            /{{ URL }}/g, URL
         ).replace(
             /{{ CHANNEL }}/g, req.params.channel,
         )
